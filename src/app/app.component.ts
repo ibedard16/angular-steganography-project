@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+	image: File;
+
+	imageChange(image: File) {
+		this.image = image;
+	}
 }
