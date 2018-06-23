@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ImageInputComponent } from './image-input/image-input.component';
-import { ImageDisplayComponent } from './image-display/image-display.component';
+import { ImageProcessorComponent } from './image-processor/image-processor.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		ImageInputComponent,
-		ImageDisplayComponent
+		ImageProcessorComponent
 	],
 	imports: [
 		BrowserModule,

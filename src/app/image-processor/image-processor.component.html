@@ -1,0 +1,6 @@
+<canvas #canvas></canvas>
+
+<div *ngIf="!!image">
+	<textarea [value]="textbox"></textarea>
+	<button (click)="decodeEncryptedImage()">Decode</button>
+</div>

@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { ImageDisplayComponent } from './image-display.component';
+import { ImageProcessorComponent } from './image-processor.component';
 
-describe('ImageDisplayComponent', () => {
-	let component: ImageDisplayComponent;
-	let fixture: ComponentFixture<ImageDisplayComponent>;
+describe('ImageProcessorComponent', () => {
+	let component: ImageProcessorComponent;
+	let fixture: ComponentFixture<ImageProcessorComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [ ImageDisplayComponent ]
+			declarations: [ ImageProcessorComponent ]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(ImageDisplayComponent);
+		fixture = TestBed.createComponent(ImageProcessorComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
