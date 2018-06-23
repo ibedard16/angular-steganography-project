@@ -1,6 +1,8 @@
 <canvas #canvas></canvas>
 
 <div *ngIf="!!image">
-	<textarea [value]="textbox"></textarea>
+	<textarea [formControl]="textboxControl"></textarea>
+	<span *ngIf="textboxControl.invalid">Message is too long to be encoded!</span>
 	<button (click)="decodeEncryptedImage()">Decode</button>
+	<button (click)="encodeEncryptedImage()">Encode</button>
 </div>
