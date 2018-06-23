@@ -1,5 +1,6 @@
 import { Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'steg-image-processor',
@@ -10,13 +11,16 @@ export class ImageProcessorComponent implements OnChanges {
 	@Input() image: HTMLImageElement;
 	@Output() imageChange = new EventEmitter<HTMLImageElement>();
 	@ViewChild('canvas') canvasRef: ElementRef;
+	@ViewChild('link') linkRef: ElementRef;
 
 	textboxControl: FormControl;
+	imageAsDataUrl: any;
 
 	private canvas: CanvasRenderingContext2D;
 	constructor(
 		formBuilder: FormBuilder,
-		private renderer: Renderer
+		private renderer: Renderer,
+		private sanitizer: DomSanitizer
 	) {
 		this.textboxControl = formBuilder.control('');
 	}
@@ -25,9 +29,18 @@ export class ImageProcessorComponent implements OnChanges {
 		this.canvas = this.canvasRef.nativeElement.getContext('2d');
 	}
 
+	setImageDownloadLink() {
+		this.canvasRef.nativeElement.toBlob(imageBlob => {
+			const imageFile = new File([imageBlob], 'image.bmp');
+
+			this.imageAsDataUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imageFile));
+		});
+	}
+
 	ngOnChanges() {
 		if (this.image != null) {
 			this.drawImageInCanvas();
+			this.setImageDownloadLink();
 
 			const maxMessageSize = this.image.height * this.image.width / 8;
 			this.textboxControl.setValidators(Validators.maxLength(maxMessageSize));
@@ -100,6 +113,8 @@ export class ImageProcessorComponent implements OnChanges {
 
 		const newImageData = new ImageData(imageBytes, imageData.width, imageData.height);
 		this.canvas.putImageData(newImageData, 0, 0);
+
+		this.setImageDownloadLink();
 	}
 
 	private drawImageInCanvas() {
